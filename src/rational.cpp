@@ -45,6 +45,32 @@ void Rational::displayFraction(ostream & output) {
     }
 }
 
+Rational Rational::inverse(Rational r) {
+  long tmp = r._num;
+  r._num=r._den;
+  r._den=tmp;
+ 
+  return r;
+}
+
+Rational Rational::pow(int n) {
+  /* if (n<=0) {
+    cout << "1" << endl;
+    return inverse(pow(-n));
+  } */
+  if (n%2==0) {
+    cout << "2" << endl;
+    _num*=_num;
+    _den*=_den;
+    return pow(n-1);
+  }
+  if (n%2==1) {
+    cout << "3" << endl;
+    return pow(2*(n-1));
+  }
+  exit(-1);
+}
+ 
 int main() {
     ostream output;
     
@@ -66,13 +92,11 @@ int main() {
     cout << " sign:" << r3.getSign();
     cout << endl;
 
-    cout << "Numerator:" << r3.getNum();
-    cout << " denominator:" << r3.getDen();
-    cout << " sign:" << r3.getSign();
-    cout << endl;
-
     cout << "The fractionnal form of r3 is " << endl;
     r3.displayFraction(ostream & output);
+
+    Rational r4 = r2.pow(2);
+    cout << "r2^2=" << r4.getNum() << "/" << r4.getDen() << endl;
 
     return 0; 
 }

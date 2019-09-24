@@ -15,7 +15,9 @@ public:
     inline long getDen() const;
     inline long getSign() const;
     void displayFraction(std::ostream & output);
-  
+    Rational pow(int n);
+    Rational inverse(Rational r);
+
 private:
   long _num;
   long _den;
