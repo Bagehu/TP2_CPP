@@ -37,13 +37,17 @@ long Rational::getSign() const {
     return (_den >= 0) ? 1 : -1;
 }
 
-void Rational::display(ostream & output) {
+void Rational::displayFraction(ostream & output) {
     if(_num == 1) {
-	
+	output << _den << endl; 
+    }else {
+	output << _den << "/" << _num << endl;
     }
 }
 
 int main() {
+    ostream output;
+    
     Rational r1;
     cout << "Numerator:" << r1.getNum();
     cout << " denominator:" << r1.getDen();
@@ -61,6 +65,14 @@ int main() {
     cout << " denominator:" << r3.getDen();
     cout << " sign:" << r3.getSign();
     cout << endl;
+
+    cout << "Numerator:" << r3.getNum();
+    cout << " denominator:" << r3.getDen();
+    cout << " sign:" << r3.getSign();
+    cout << endl;
+
+    cout << "The fractionnal form of r3 is " << endl;
+    r3.displayFraction(ostream & output);
 
     return 0; 
 }
