@@ -1,4 +1,0 @@
-#include <iostream>
-#include <array>
-#include "../include/rational.h"
-using namespace std;
