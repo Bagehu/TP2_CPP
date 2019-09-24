@@ -71,9 +71,7 @@ Rational Rational::pow(int n) {
   exit(-1);
 }
  
-int main() {
-    ostream output;
-    
+int main() {    
     Rational r1;
     cout << "Numerator:" << r1.getNum();
     cout << " denominator:" << r1.getDen();
@@ -93,7 +91,7 @@ int main() {
     cout << endl;
 
     cout << "The fractionnal form of r3 is " << endl;
-    r3.displayFraction(ostream & output);
+    r3.displayFraction(cout);
 
     Rational r4 = r2.pow(2);
     cout << "r2^2=" << r4.getNum() << "/" << r4.getDen() << endl;
