@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -pedantic -std=c++11 -Wall -Wextra -I./include
 
-.PHONY: all clean archive
+.PHONY: all clean archive git
 
 all: bin  ./bin/rational
 
@@ -19,3 +19,9 @@ clean:
 archive:
 	make -i clean
 	tar -czvf ROUILLE_HUBERT_TP2_CPP.tar ./*
+
+git:
+	make -i clean
+	git add .
+	git commit
+	git push
