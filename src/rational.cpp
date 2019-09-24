@@ -5,66 +5,62 @@
 #include "../include/rational.h"
 using namespace std;
 
-class Rational {
-
-public:
-  Rational() {
+Rational::Rational() {
     _num = _den = 0;
-  }
+}
 
-  Rational(long p, long q) {
+Rational::Rational(long p, long q) {
     long g = euclide(p,q);
     long sign = (q>0) ? 1 : -1;
     _num = sign * p / g;
     _den = abs(q)/g;
     
-  }
+}
 
-  long euclide (long p, long q) {
+long Rational::euclide (long p, long q) {
     if (q==0) {
-      return p;
+	return p;
     } else {
-      return euclide(q,p%q);
+	return euclide(q,p%q);
     }
-  }
-  inline long getNum() const;
-  inline long getDen() const;
-  inline long getSign() const;  
-private:
-  long _num;
-  long _den;
-};
+}
 
 long Rational::getNum() const {
-  return _num;
+    return _num;
 }
 
 long Rational::getDen() const {
-  return _den;
+    return _den;
 }
 
 long Rational::getSign() const {
-  return (_den>=0) ? 1 : -1;
+    return (_den >= 0) ? 1 : -1;
 }
- 
+
+void Rational::display(ostream & output) {
+    if(_num == 1) {
+	
+    }
+}
+
 int main() {
-  Rational r1;
-  cout << "Numérateur:" << r1.getNum();
-  cout << " dénominateur:" << r1.getDen();
-  cout << " signe:" << r1.getSign();
-  cout << endl;
+    Rational r1;
+    cout << "Numerator:" << r1.getNum();
+    cout << " denominator:" << r1.getDen();
+    cout << " sign:" << r1.getSign();
+    cout << endl;
 
-  Rational r2(5,3);
-  cout << "Numérateur:" << r1.getNum();
-  cout << " dénominateur:" << r1.getDen();
-  cout << " signe:" << r1.getSign();
-  cout << endl;
+    Rational r2(5,3);
+    cout << "Numerator:" << r2.getNum();
+    cout << " denominator:" << r2.getDen();
+    cout << " sign:" << r2.getSign();
+    cout << endl;
 
-  Rational r3(-7,6);
-  cout << "Numérateur:" << r3.getNum();
-  cout << " dénominateur:" << r3.getDen();
-  cout << " signe:" << r3.getSign();
-  cout << endl;
+    Rational r3(-7,6);
+    cout << "Numerator:" << r3.getNum();
+    cout << " denominator:" << r3.getDen();
+    cout << " sign:" << r3.getSign();
+    cout << endl;
 
-  return 0; 
+    return 0; 
 }
