@@ -9,14 +9,14 @@ class Rational {
 
 public:
   Rational() {
-    _num = _dem = 0;
+    _num = _den = 0;
   }
 
   Rational(long p, long q) {
     long g = euclide(p,q);
     long sign = (q>0) ? 1 : -1;
-    _num = sign * p / q;
-    _dem = abs(q)/g;
+    _num = sign * p / g;
+    _den = abs(q)/g;
     
   }
 
@@ -27,24 +27,44 @@ public:
       return euclide(q,p%q);
     }
   }
-  
   inline long getNum() const;
-  
+  inline long getDen() const;
+  inline long getSign() const;  
 private:
   long _num;
-  long _dem;
+  long _den;
 };
 
 long Rational::getNum() const {
   return _num;
 }
+
+long Rational::getDen() const {
+  return _den;
+}
+
+long Rational::getSign() const {
+  return (_den>=0) ? 1 : -1;
+}
  
 int main() {
   Rational r1;
-  cout << r1.getNum() << endl;
+  cout << "Numérateur:" << r1.getNum();
+  cout << " dénominateur:" << r1.getDen();
+  cout << " signe:" << r1.getSign();
+  cout << endl;
 
   Rational r2(5,3);
-  cout << r2.getNum() << endl;
+  cout << "Numérateur:" << r1.getNum();
+  cout << " dénominateur:" << r1.getDen();
+  cout << " signe:" << r1.getSign();
+  cout << endl;
+
+  Rational r3(-7,6);
+  cout << "Numérateur:" << r3.getNum();
+  cout << " dénominateur:" << r3.getDen();
+  cout << " signe:" << r3.getSign();
+  cout << endl;
 
   return 0; 
 }
