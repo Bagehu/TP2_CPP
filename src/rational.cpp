@@ -37,12 +37,12 @@ long Rational::getSign() const {
     return (_den >= 0) ? 1 : -1;
 }
 
-/*
+
 void Rational::display(ostream & output) {
     if(_num == 1) {
 	
     }
-}*/
+}
 
 Rational Rational::inverse(Rational r) {
   long tmp = r._num;

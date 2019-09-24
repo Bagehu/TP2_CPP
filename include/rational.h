@@ -13,7 +13,7 @@ public:
     inline long getNum() const;
     inline long getDen() const;
     inline long getSign() const;
-    //    void display(ostream & output);
+    void display(ostream & output);
     Rational pow(int n);
     Rational inverse(Rational r);
 private:
