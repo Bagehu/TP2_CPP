@@ -9,42 +9,42 @@ class Rational {
 
 public:
   Rational() {
-    r = 0;
+    _num = _dem = 0;
   }
 
   Rational(long p, long q) {
-    long pgcd=-1;
-    if (q > 0) {
-      r = euclide(p,q);
-    }
+    long g = euclide(p,q);
+    long sign = (q>0) ? 1 : -1;
+    _num = sign * p / q;
+    _dem = abs(q)/g;
+    
   }
-  long euclide(long p, long q) {
-    long pgcd = -1;
-    long g = 0;
-    while(pgcd != 0) {
-      pgcd = p%q;
-      p = q;
-      q = pgcd;
+
+  long euclide (long p, long q) {
+    if (q==0) {
+      return p;
+    } else {
+      return euclide(q,p%q);
     }
-    long sign = (q > 0)? 1 : -1;
-    g = sign * ((p/pgcd) / (abs(q)/pgcd));
-    return g;
   }
   
-  inline void getNum() const;
+  inline long getNum() const;
   
 private:
-  long r;
+  long _num;
+  long _dem;
 };
 
-void Rational::getNum() const {
-  return r;
+long Rational::getNum() const {
+  return _num;
 }
  
 int main() {
   Rational r1;
   cout << r1.getNum() << endl;
 
-  //Rational r2(5,3);
+  Rational r2(5,3);
+  cout << r2.getNum() << endl;
+
   return 0; 
 }
