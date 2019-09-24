@@ -1,4 +1,5 @@
 // TP2 - Arthur ROUILLE et Bastien HUBERT
+
 #include <iostream>
 #include <array>
 #include "../include/rational.h"
