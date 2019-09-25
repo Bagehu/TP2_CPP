@@ -17,6 +17,11 @@ Rational::Rational(long p, long q) {
     
 }
 
+Rational::Rational(const Rational & r) {
+  _num=r._num;
+  _den=r._den;
+}
+
 long Rational::euclide (long p, long q) {
     if (q==0) {
 	return p;
@@ -45,12 +50,14 @@ void Rational::displayFraction(ostream & output) {
     }
 }
 
-Rational Rational::inverse(Rational r) {
-  long tmp = r._num;
-  r._num=r._den;
-  r._den=tmp;
- 
-  return r;
+Rational inverse(Rational r) {
+  long num = r.getNum();
+  long den = r.getDen();
+  long tmp = num;
+  num=den;
+  den=tmp;
+  Rational inv(num,den);
+  return inv;
 }
 
 Rational Rational::pow(int n) {
@@ -93,7 +100,10 @@ int main() {
     cout << "The fractionnal form of r3 is " << endl;
     r3.displayFraction(cout);
 
-    Rational r4 = r2.pow(2);
+    cout << "The fractionnal form of r3^-1 is " << endl;
+    inverse(r3).displayFraction(cout);
+
+    Rational r4(r2.pow(2));
     cout << "r2^2=" << r4.getNum() << "/" << r4.getDen() << endl;
 
     return 0; 
