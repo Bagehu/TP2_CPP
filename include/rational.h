@@ -17,14 +17,17 @@ public:
     inline long getSign() const;
     void displayFraction(std::ostream & output);
     Rational pow(int n);
+    Rational inverse(Rational r);
 
 private:
   long _num;
   long _den;
 };
 
-    Rational inverse(Rational r);
-
+Rational sum(long p1, long p2, long q1, long q2);
+Rational difference(long p1, long p2, long q1, long q2);
+Rational product(long p1, long p2, long q1, long q2);
+Rational quotient(long p1, long p2, long q1, long q2);
 
 #endif
   
