@@ -24,10 +24,9 @@ private:
   long _den;
 };
 
-Rational sum(long p1, long p2, long q1, long q2);
-Rational difference(long p1, long p2, long q1, long q2);
-Rational product(long p1, long p2, long q1, long q2);
-Rational quotient(long p1, long p2, long q1, long q2);
-
+Rational sum(Rational r1, Rational r2);
+Rational difference(Rational r1, Rational r2);
+Rational product(Rational r1, Rational r2);
+Rational quotient(Rational r1, Rational r2);
 #endif
   

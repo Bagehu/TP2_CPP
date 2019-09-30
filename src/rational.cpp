@@ -11,9 +11,10 @@ Rational::Rational() {
 
 Rational::Rational(long p, long q) {
     long g = euclide(p,q);
-    long sign = (q>0) ? 1 : -1;
-    _num = sign * p / g;
-    _den = abs(q)/g;
+    long sign = (q>=0) ? 1 : -1;
+    
+    _num = (sign * p) / g;
+    _den = abs(q) / g;
 }
 
 Rational::Rational(const Rational & r) {
@@ -21,9 +22,9 @@ Rational::Rational(const Rational & r) {
   _den = r._den;
 }
 
-long Rational::euclide (long p, long q) {
+long Rational::euclide(long p, long q) {
     if (q == 0) {
-	return p;
+      return abs(p);
     } else {
 	return euclide(q, p % q);
     }
@@ -38,14 +39,14 @@ long Rational::getDen() const {
 }
 
 long Rational::getSign() const {
-    return (_den >= 0) ? 1 : -1;
+    return (_den*_num >= 0) ? 1 : -1;
 }
 
 void Rational::displayFraction(ostream & output) {
-    if(_num == 1) {
-	output << _den << endl; 
-    }else {
-	output << _den << "/" << _num << endl;
+    if(_den == 1 || _den == -1) {
+	output << _num*_den; 
+    } else {
+      output << "(" << _num << "/" << _den << ")";
     }
 }
 
@@ -62,43 +63,42 @@ Rational inverse(Rational r) {
 Rational Rational::pow(int n) {
   if (n < 0) {
     return ::inverse(pow(-n));
-  }else if (n == 0) {
+  } else if (n == 0) {
     return Rational(1, 1);
   } 
   if (n%2==0) {
-    cout << "2" << endl;
     _num*=_num;
     _den*=_den;
-    return pow(n-1);
+    return pow(2*n-1);
   }
   if (n%2==1) {
-    cout << "3" << endl;
-    return pow(2*(n-1));
+    return pow(2*n-2);
   }
   exit(-1);
 }
 
-Rational sum(long p1, long p2, long q1, long q2) {
-  long pOut = p1 * q2 + p2 * q1;
-  long qOut = q1 * q2;
-  cout << "pOut/qOut =" << pOut << "/" << qOut << endl;
-  return Rational(pOut, qOut); 
+Rational sum(Rational r1, Rational r2) {
+  long p = r1.getNum() * r2.getDen() + r2.getNum() * r1.getDen();
+  long q = r1.getDen() * r2.getDen();
+  return Rational(p,q); 
 }
 
-Rational difference(long p1, long p2, long q1, long q2) {
-  return sum(p1, -p2, q1, q2); 
+Rational difference(Rational r1, Rational r2) {
+  long p = r1.getNum() * r2.getDen() - r2.getNum() * r1.getDen();
+  long q = r1.getDen() * r2.getDen();
+  return Rational(p,q); 
 }
 
-Rational product(long p1, long p2, long q1, long q2) {
-  long pOut = p1 * p2;
-  long qOut = q1 * q2;
-  return Rational(pOut, qOut); 
+Rational product(Rational r1, Rational r2) {
+  long p = r1.getNum() * r2.getNum();
+  long q = r1.getDen() * r2.getDen();
+  return Rational(p, q); 
 }
 
-Rational quotient(long p1, long p2, long q1, long q2) {
-  return product(p1, q2, q1, p2);
+Rational quotient(Rational r1, Rational r2) {
+  return product(r1,inverse(r2));
 }
- 
+
 int main() {    
     Rational r1;
     cout << "Numerator:" << r1.getNum();
@@ -106,32 +106,60 @@ int main() {
     cout << " sign:" << r1.getSign();
     cout << endl;
 
-    Rational r2(5,3);
+    Rational r2(1,2);
     cout << "Numerator:" << r2.getNum();
     cout << " denominator:" << r2.getDen();
     cout << " sign:" << r2.getSign();
     cout << endl;
 
-    Rational r3(-7,6);
+    Rational r3(-1,4);
     cout << "Numerator:" << r3.getNum();
     cout << " denominator:" << r3.getDen();
     cout << " sign:" << r3.getSign();
     cout << endl;
 
-    cout << "The fractionnal form of r3 is " << endl;
+    cout << "The fractionnal form of r3 is ";
     r3.displayFraction(cout);
-
-    cout << "The fractionnal form of r3^-1 is " << endl;
+    cout << endl;
+    
+    cout << "The fractionnal form of r3^-1 is ";
     inverse(r3).displayFraction(cout);
+    cout << endl;
+    
+    Rational r4(1,2);
+    r4.pow(3);
+    cout << "r2^2=";
+    r4.displayFraction(cout);
+    cout << endl;
+    
+    r2.displayFraction(cout);
+    cout << " + ";
+    r3.displayFraction(cout);
+    cout << " = ";
+    sum(r2,r3).displayFraction(cout);
+    cout << endl;
 
-    Rational r4(r2.pow(2));
-    cout << "r2^2=" << r4.getNum() << "/" << r4.getDen() << endl;
+    r2.displayFraction(cout);
+    cout << " - ";
+    r3.displayFraction(cout);
+    cout << " = ";
+    difference(r2,r3).displayFraction(cout);
+    cout << endl;
 
-    cout << "1/2 + 1/4 =" << endl;
-    sum(1, 1, 2, 4).displayFraction(cout);
+    r2.displayFraction(cout);
+    cout << " * ";
+    r3.displayFraction(cout);
+    cout << " = ";
+    product(r2,r3).displayFraction(cout);
+    cout << endl;
 
-        cout << "1/4 + 1/2 =" << endl;
-    sum(1, 1, 4, 2).displayFraction(cout);
+    
+    r2.displayFraction(cout);
+    cout << " / ";
+    r3.displayFraction(cout);
+    cout << " = ";
+    quotient(r2,r3).displayFraction(cout);
+    cout << endl;
 
     return 0; 
 }
