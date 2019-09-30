@@ -5,8 +5,8 @@
 #include "../include/rational.h"
 using namespace std;
 
-Rational::Rational() {
-    _num = _den = 0;
+Rational::Rational() : _num{0}, _den{0}
+{
 }
 
 Rational::Rational(long p, long q) {
@@ -17,9 +17,8 @@ Rational::Rational(long p, long q) {
     _den = abs(q) / g;
 }
 
-Rational::Rational(const Rational & r) {
-  _num = r._num;
-  _den = r._den;
+Rational::Rational(const Rational & r) : Rational(r._num,r._den)
+{
 }
 
 long Rational::euclide(long p, long q) {
@@ -63,18 +62,20 @@ Rational inverse(Rational r) {
 Rational Rational::pow(int n) {
   if (n < 0) {
     return ::inverse(pow(-n));
-  } else if (n == 0) {
+  }
+  if (n == 0) {
     return Rational(1, 1);
   } 
   if (n%2==0) {
     _num*=_num;
     _den*=_den;
-    return pow(2*n-1);
+    return pow(n/2);
   }
-  if (n%2==1) {
-    return pow(2*n-2);
+  else {
+    _num*=_num*_num;
+    _den*=_den*_den;
+    return pow(n-1);
   }
-  exit(-1);
 }
 
 Rational sum(Rational r1, Rational r2) {
@@ -128,7 +129,7 @@ int main() {
     
     Rational r4(1,2);
     r4.pow(3);
-    cout << "r2^2=";
+    cout << "(1/2)^3=";
     r4.displayFraction(cout);
     cout << endl;
     
