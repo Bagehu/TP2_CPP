@@ -1,4 +1,4 @@
-// TP2 - Arthur ROUILLE et Bastien HUBERT
+!// TP2 - Arthur ROUILLE et Bastien HUBERT
 
 #include <iostream>
 #include <array>
@@ -67,15 +67,13 @@ Rational Rational::pow(int n) {
     return Rational(1, 1);
   } 
   if (n%2==0) {
-    _num*=_num;
-    _den*=_den;
+    //    this.pow(n/2);
+    //return Rational(_num*_num,_den*_den);
     return pow(n/2);
   }
   else {
-    _num*=_num*_num;
-    _den*=_den*_den;
     return pow(n-1);
-  }
+  } 
 }
 
 Rational sum(Rational r1, Rational r2) {
