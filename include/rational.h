@@ -4,6 +4,7 @@
 #define __RATIONAL_H__
 
 #include <iostream>
+using namespace std;
 
 class Rational {
 
@@ -15,11 +16,22 @@ public:
     inline long getNum() const;
     inline long getDen() const;
     inline long getSign() const;
-    void displayFraction(std::ostream & output);
+    void displayFraction(ostream & output);
+
     Rational pow(int n);
     Rational inverse(Rational r);
 
-private:
+    Rational operator*(Rational other);
+    Rational operator/(Rational other);
+    Rational operator+(Rational other);
+    Rational operator-(Rational other);
+    Rational operator-();
+    Rational operator=(const Rational & other);
+    friend ostream & operator << (ostream & out, Rational r);
+    ~Rational() {
+      cout << "---Rational(p,q)" << " [" << this << "]" << endl;
+    }
+ private:
   long _num;
   long _den;
 };
@@ -29,4 +41,3 @@ Rational difference(Rational r1, Rational r2);
 Rational product(Rational r1, Rational r2);
 Rational quotient(Rational r1, Rational r2);
 #endif
-  

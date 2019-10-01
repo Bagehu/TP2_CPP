@@ -1,4 +1,4 @@
-!// TP2 - Arthur ROUILLE et Bastien HUBERT
+// TP2 - Arthur ROUILLE et Bastien HUBERT
 
 #include <iostream>
 #include <array>
@@ -7,18 +7,22 @@ using namespace std;
 
 Rational::Rational() : _num{0}, _den{0}
 {
+  cout << "+++Rational()" << " [" << this << "]" << endl;
 }
 
 Rational::Rational(long p, long q) {
     long g = euclide(p,q);
     long sign = (q>=0) ? 1 : -1;
-    
+  
     _num = (sign * p) / g;
     _den = abs(q) / g;
+
+    cout << "+++Rational(p,q)" << " [" << this << "]" << endl;
 }
 
 Rational::Rational(const Rational & r) : Rational(r._num,r._den)
 {
+   cout << "rrrRational(p,q)" << " [" << this << "]" << endl;
 }
 
 long Rational::euclide(long p, long q) {
@@ -59,20 +63,24 @@ Rational inverse(Rational r) {
   return inv;
 }
 
+//Doesn't work
 Rational Rational::pow(int n) {
   if (n < 0) {
     return ::inverse(pow(-n));
   }
   if (n == 0) {
     return Rational(1, 1);
-  } 
+  }
   if (n%2==0) {
-    //    this.pow(n/2);
-    //return Rational(_num*_num,_den*_den);
-    return pow(n/2);
+    cout << "1:"<<_num << "/" <<_den << endl;
+    Rational r(_num*_num,_den*_den);
+    //this=r;
+    return Rational(_num*_num,_den*_den);
   }
   else {
-    return pow(n-1);
+    cout << "2:" <<_num << "/" <<_den << endl;
+    pow(n-1);
+    return Rational(_num,_den).pow(n-1);
   } 
 }
 
@@ -96,6 +104,50 @@ Rational product(Rational r1, Rational r2) {
 
 Rational quotient(Rational r1, Rational r2) {
   return product(r1,inverse(r2));
+}
+
+Rational Rational::operator*(Rational other) {
+  return Rational(_num * other._num,
+		  _den * other._den);
+}
+
+Rational Rational::operator/(Rational other) {
+  return Rational(_num * other._den,
+		  _den * other._num);
+}
+
+Rational Rational::operator+(Rational other) {
+  return Rational (_num * other._den + other._num * _den,
+		   _den * other._den);
+}
+Rational Rational::operator-(Rational other) {
+  return Rational (_num * other._den - other._num * _den,
+		   _den * other._den);
+}
+
+Rational Rational::operator=(const Rational & other) {
+  if (this == &other) {
+    return *this;
+  }
+  if (other._num && other._den) {
+    _num = other._num;
+    _den = other._den;
+  }
+  return *this;
+}
+
+
+ostream & operator<<(ostream & out, Rational r) {
+  r.displayFraction(out);
+  return out;
+}
+
+//Woaw non
+Rational Rational::operator-() {
+  Rational r;
+  r._num = - _num;
+  r._den = - _den;
+  return r;
 }
 
 int main() {    
@@ -135,21 +187,21 @@ int main() {
     cout << " + ";
     r3.displayFraction(cout);
     cout << " = ";
-    sum(r2,r3).displayFraction(cout);
+    (r2+r3).displayFraction(cout);
     cout << endl;
 
     r2.displayFraction(cout);
     cout << " - ";
     r3.displayFraction(cout);
     cout << " = ";
-    difference(r2,r3).displayFraction(cout);
+    (r2-r3).displayFraction(cout);
     cout << endl;
 
     r2.displayFraction(cout);
     cout << " * ";
     r3.displayFraction(cout);
     cout << " = ";
-    product(r2,r3).displayFraction(cout);
+    (r2*r3).displayFraction(cout);
     cout << endl;
 
     
@@ -157,8 +209,17 @@ int main() {
     cout << " / ";
     r3.displayFraction(cout);
     cout << " = ";
-    quotient(r2,r3).displayFraction(cout);
+    (r2/r3).displayFraction(cout);
     cout << endl;
 
+    cout << "-";
+    r3.displayFraction(cout);
+    cout << " = ";
+    (-r3).displayFraction(cout);
+    cout << endl;
+
+    Rational r5(2,9);
+    cout << "Nouveau rationel woaw :";
+    cout << r5 << endl;
     return 0; 
 }
