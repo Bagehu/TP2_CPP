@@ -124,7 +124,7 @@ Rational Rational::operator-(Rational other) {
   return Rational (_num * other._den - other._num * _den,
 		   _den * other._den);
 }
-bool Rational::operator>(Rational other) {
+bool Rational::operator>(const Rational &other) const {
   if (_num * other._den > other._num * _den) {
     return true;
   } else {
@@ -157,7 +157,7 @@ Rational sqr(Rational &r) {
   return r*r;
 }
 
-Rational & max(Rational &a, Rational &b) {
+const Rational max(const Rational a, const Rational b) {
   if (a > b) {
     return a;
   } else {
@@ -185,55 +185,32 @@ int test() {
   cout << endl;
 
   cout << "The fractionnal form of r3 is ";
-  r3.displayFraction(cout);
-  cout << endl;
+  cout << r3 << endl;
     
-  cout << "The fractionnal form of r3^-1 is ";
-  inverse(r3).displayFraction(cout);
-  cout << endl;
+  cout << "The fractionnal form of r3^-1 is " << inverse(r3) << endl;
     
   Rational r4(1,2);
   r4.pow(3);
-  cout << "(1/2)^3=";
-  r4.displayFraction(cout);
-  cout << endl;
+  cout << "(1/2)^3=" << r4 << endl;
     
-  r2.displayFraction(cout);
-  cout << " + ";
-  r3.displayFraction(cout);
-  cout << " = ";
-  (r2+r3).displayFraction(cout);
-  cout << endl;
-
-  r2.displayFraction(cout);
-  cout << " - ";
-  r3.displayFraction(cout);
-  cout << " = ";
-  (r2-r3).displayFraction(cout);
-  cout << endl;
-
-  r2.displayFraction(cout);
-  cout << " * ";
-  r3.displayFraction(cout);
-  cout << " = ";
-  (r2*r3).displayFraction(cout);
-  cout << endl;    
-  r2.displayFraction(cout);
-  cout << " / ";
-  r3.displayFraction(cout);
-  cout << " = ";
-  (r2/r3).displayFraction(cout);
-  cout << endl;
-
-  cout << "-";
-  r3.displayFraction(cout);
-  cout << " = ";
-  (-r3).displayFraction(cout);
-  cout << endl;
+  cout << r2 << " + " << r3 << " = " << (r2+r3) << endl;
+  cout << r2 << " - " << r3 << " = " << (r2-r3) << endl;
+  cout << r2 << " * " << r3 << " = " << (r2*r3) << endl;
+  cout << r2 << " / " << r3 << " = " << (r2/r3) << endl;
+  
+  cout << "-" << r3 << " = " << (-r3) << endl;
 
   cout << "FONCTION MAX" << endl;
-  cout << *max(new Rational(1,2), new Rational(1,100)) << endl;
+  cout << max(Rational(1,2), Rational(1,100)) << endl;
+  Rational a(1,2);
+  Rational b(1,4);
+  a=max((a + b), (a * b));
+  cout << a << endl;
 
+  Rational c(0,1);
+  c=max(a,b);
+  cout << c << endl;
+  
   return EXIT_SUCCESS;
 }
 
