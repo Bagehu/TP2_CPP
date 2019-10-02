@@ -30,7 +30,7 @@ public:
     Rational operator=(const Rational & other);
     friend ostream & operator << (ostream & out, Rational r);
     ~Rational() {
-      cout << "---Rational(" << _num << "," << _den << ")"  << " [" << this << "]" << endl;
+      cout << "\t---Rational(" << _num << "," << _den << ")"  << " [" << this << "]" << endl;
     }
     
  private:

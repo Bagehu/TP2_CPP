@@ -5,9 +5,9 @@
 #include "rational.h"
 using namespace std;
 
-Rational::Rational() : _num{0}, _den{0}
+Rational::Rational() : _num{0}, _den{1}
 {
-  cout << "+++Rational()" << " [" << this << "]" << endl;
+  cout << "\t+++Rational()" << " [" << this << "]" << endl;
 }
 
 Rational::Rational(long p, long q) {
@@ -17,12 +17,12 @@ Rational::Rational(long p, long q) {
   _num = (sign * p) / g;
   _den = abs(q) / g;
 
-  cout << "+++Rational(" << _num << "," << _den << ")" << " [" << this << "]" << endl;
+  cout << "\t+++Rational(" << _num << "," << _den << ")" << " [" << this << "]" << endl;
 }
 
 Rational::Rational(const Rational & r) : Rational(r._num,r._den)
 {
-   cout << "rrrRational(" << _num << "," << _den << ")" << " [" << this << "]" << endl;
+   cout << "\trrrRational(" << _num << "," << _den << ")" << " [" << this << "]" << endl;
 }
 
 long Rational::euclide(long p, long q) {
@@ -166,41 +166,43 @@ const Rational max(const Rational a, const Rational b) {
 }
     
 int test() {
+  cout << "CONSTRUCTORS AND GETTERS" << endl;
   Rational r1;
+  //cout << r1 << ": ";
   cout << "Numerator:" << r1.getNum();
   cout << " denominator:" << r1.getDen();
   cout << " sign:" << r1.getSign();
-  cout << endl;
+  cout << "\n" << endl;
 
   Rational r2(1,2);
+  cout << r2 << ": ";
   cout << "Numerator:" << r2.getNum();
   cout << " denominator:" << r2.getDen();
   cout << " sign:" << r2.getSign();
-  cout << endl;
+  cout << "\n" << endl;
 
   Rational r3(-1,4);
+  cout << r3 << ": ";
   cout << "Numerator:" << r3.getNum();
   cout << " denominator:" << r3.getDen();
   cout << " sign:" << r3.getSign();
-  cout << endl;
-
-  cout << "The fractionnal form of r3 is ";
-  cout << r3 << endl;
-    
-  cout << "The fractionnal form of r3^-1 is " << inverse(r3) << endl;
-    
+  cout << "\n" << endl;
+  
+  cout << "POW TESTING" << endl;
   Rational r4(1,2);
-  r4.pow(3);
-  cout << "(1/2)^3=" << r4 << endl;
-    
+  Rational r4init(r4);
+  cout << r4init << "^3=" << r4.pow(3) << endl;
+  cout << "\n" << endl;
+  
+  cout << "OPERATORS OVERLOADING" << endl;
   cout << r2 << " + " << r3 << " = " << (r2+r3) << endl;
   cout << r2 << " - " << r3 << " = " << (r2-r3) << endl;
   cout << r2 << " * " << r3 << " = " << (r2*r3) << endl;
   cout << r2 << " / " << r3 << " = " << (r2/r3) << endl;
-  
   cout << "-" << r3 << " = " << (-r3) << endl;
+  cout << "\n" << endl;
 
-  cout << "FONCTION MAX" << endl;
+  cout << "MAX FUNCTION" << endl;
   cout << max(Rational(1,2), Rational(1,100)) << endl;
   Rational a(1,2);
   Rational b(1,4);
