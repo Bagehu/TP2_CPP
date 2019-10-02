@@ -75,6 +75,15 @@ Rational Rational::pow(unsigned int n) {
   } 
 }
 
+/* The wrong "sum" method, using private attributes of the "Rational" class */
+/*
+Rational sum(Rational r1, Rational r2) {
+  long p = r1._num * r2._den + r2._num * r1._den;
+  long q = r1._den * r2._den;
+  return Rational(p,q); 
+}
+*/
+
 Rational sum(Rational r1, Rational r2) {
   long p = r1.getNum() * r2.getDen() + r2.getNum() * r1.getDen();
   long q = r1.getDen() * r2.getDen();
@@ -127,15 +136,16 @@ Rational Rational::operator=(const Rational & other) {
   return *this;
 }
 
+Rational Rational::operator-() {
+  Rational r(- _num, _den);
+  return r;
+}
+
 ostream & operator<<(ostream & out, Rational r) {
   r.displayFraction(out);
   return out;
 }
 
-Rational Rational::operator-() {
-  Rational r(- _num, _den);
-  return r;
-}
 
 int test() {
   Rational r1;
