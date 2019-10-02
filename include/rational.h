@@ -25,7 +25,7 @@ public:
     Rational operator/(Rational other);
     Rational operator+(Rational other);
     Rational operator-(Rational other);
-    bool operator>(Rational other);
+    bool operator>(const Rational &other) const;
     Rational operator-();
     Rational operator=(const Rational & other);
     friend ostream & operator << (ostream & out, Rational r);
@@ -43,9 +43,13 @@ Rational difference(Rational r1, Rational r2);
 Rational product(Rational r1, Rational r2);
 Rational quotient(Rational r1, Rational r2);
 Rational sqr(Rational &r);
+
 Rational & max(Rational &a, Rational &b);
+const Rational max(const Rational a, const Rational b);
 Rational sumArray(Rational* array, unsigned int arraySize);
 Rational* fillArray(Rational* array, unsigned int arraySize);
+
+
 
 int test();
 int main();
