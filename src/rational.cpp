@@ -120,10 +120,17 @@ Rational Rational::operator+(Rational other) {
   return Rational (_num * other._den + other._num * _den,
 		   _den * other._den);
 }
+
+Rational Rational::operator+(int other) {
+  return Rational (other * (_num + _den),
+		   _den * other);
+}
+
 Rational Rational::operator-(Rational other) {
   return Rational (_num * other._den - other._num * _den,
 		   _den * other._den);
 }
+
 bool Rational::operator>(const Rational &other) const {
   if (_num * other._den > other._num * _den) {
     return true;
@@ -217,9 +224,18 @@ int test() {
   cout << "-" << r3 << " = " << (-r3) << endl;
 
   cout << "FONCTION MAX" << endl;
-  
-  cout << *max(new Rational(1,2), new Rational(1,100)) << endl;
+  cout << max(Rational(1,2), Rational(1,100)) << endl;
 
+  cout << max(Rational(1,2), Rational(1,100)) << endl;
+  Rational a(1,2);
+  Rational b(1,4);
+  a = max((a + b), (a * b));
+  cout << a << endl;
+
+  Rational c(0,1);
+  c = max(a,b);
+  cout << c << endl;
+  
   Rational* array = new Rational[4] {r1, r2, r3, r4};
   cout << "Sum on an array :" << endl;
   sumArray(array, 4).displayFraction(cout);
@@ -229,19 +245,13 @@ int test() {
 
   cout << "The sum of the 15 first terms of the inverse sequence is" << endl;
   sumArray(arrayToFill, 15).displayFraction(cout);
+
+  cout << "Sum between a fraction and an integer : 1/2 + 1" << endl;
+  (r2 + 1).displayFraction(cout);
   
+
   delete[] array;
   delete[] arrayToFill;
-
-  cout << max(Rational(1,2), Rational(1,100)) << endl;
-  Rational a(1,2);
-  Rational b(1,4);
-  a=max((a + b), (a * b));
-  cout << a << endl;
-
-  Rational c(0,1);
-  c=max(a,b);
-  cout << c << endl;
   
   return EXIT_SUCCESS;
 }
