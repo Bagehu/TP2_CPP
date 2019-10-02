@@ -5,7 +5,7 @@
 #include "rational.h"
 using namespace std;
 
-Rational::Rational() : _num{0}, _den{0}
+Rational::Rational() : _num{0}, _den{1}
 {
   cout << "+++Rational()" << " [" << this << "]" << endl;
 }
@@ -164,6 +164,22 @@ Rational & max(Rational &a, Rational &b) {
     return b;
   }
 }
+
+Rational sumArray(Rational* array, unsigned int arraySize) {
+  Rational sum(0, 1);
+  for(unsigned int k = 0; k < arraySize; k++) {
+    sum = sum + array[k];
+  }
+  return sum;
+}
+
+Rational* fillArray(Rational* array, unsigned int arraySize) {
+  for(unsigned int k = 1; k < arraySize + 1; k++) {
+    array[k] = Rational(1, k);
+  }
+  return array;
+}
+
     
 int test() {
   Rational r1;
@@ -233,6 +249,19 @@ int test() {
 
   cout << "FONCTION MAX" << endl;
   cout << *max(new Rational(1,2), new Rational(1,100)) << endl;
+
+  Rational* array = new Rational[4] {r1, r2, r3, r4};
+  cout << "Sum on an array :" << endl;
+  sumArray(array, 4).displayFraction(cout);
+
+  Rational* arrayToFill = new Rational[15];
+  arrayToFill = fillArray(arrayToFill, 15);
+
+  cout << "The sum of the 15 first terms of the inverse sequence is" << endl;
+  sumArray(arrayToFill, 15).displayFraction(cout);
+  
+  delete[] array;
+  delete[] arrayToFill;
 
   return EXIT_SUCCESS;
 }

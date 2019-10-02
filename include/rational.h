@@ -44,6 +44,8 @@ Rational product(Rational r1, Rational r2);
 Rational quotient(Rational r1, Rational r2);
 Rational sqr(Rational &r);
 Rational & max(Rational &a, Rational &b);
+Rational sumArray(Rational* array, unsigned int arraySize);
+Rational* fillArray(Rational* array, unsigned int arraySize);
 
 int test();
 int main();
