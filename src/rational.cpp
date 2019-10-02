@@ -17,12 +17,12 @@ Rational::Rational(long p, long q) {
     _num = (sign * p) / g;
     _den = abs(q) / g;
 
-    cout << "+++Rational(p,q)" << " [" << this << "]" << endl;
+    cout << "+++Rational(" << _num << "," << _den << ")" << " [" << this << "]" << endl;
 }
 
 Rational::Rational(const Rational & r) : Rational(r._num,r._den)
 {
-   cout << "rrrRational(p,q)" << " [" << this << "]" << endl;
+   cout << "rrrRational(" << _num << "," << _den << ")" << " [" << this << "]" << endl;
 }
 
 long Rational::euclide(long p, long q) {
@@ -124,6 +124,13 @@ Rational Rational::operator-(Rational other) {
   return Rational (_num * other._den - other._num * _den,
 		   _den * other._den);
 }
+bool Rational::operator>(Rational other) {
+  if (_num * other._den > other._num * _den) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 Rational Rational::operator=(const Rational & other) {
   if (this == &other) {
@@ -148,6 +155,18 @@ Rational Rational::operator-() {
   r._num = - _num;
   r._den = - _den;
   return r;
+}
+
+Rational sqr(Rational &r) {
+  return r*r;
+}
+
+Rational & max(Rational &a, Rational &b) {
+  if (a > b) {
+    return a;
+  } else {
+    return b;
+  }
 }
 
 int main() {    
@@ -218,8 +237,8 @@ int main() {
     (-r3).displayFraction(cout);
     cout << endl;
 
-    Rational r5(2,9);
-    cout << "Nouveau rationel woaw :";
-    cout << r5 << endl;
+    cout << "FONCTION MAX" << endl;
+    cout << *max(new Rational(1,2), new Rational(1,100)) << endl;
+    
     return 0; 
 }

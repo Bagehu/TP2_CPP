@@ -25,12 +25,14 @@ public:
     Rational operator/(Rational other);
     Rational operator+(Rational other);
     Rational operator-(Rational other);
+    bool operator>(Rational other);
     Rational operator-();
     Rational operator=(const Rational & other);
     friend ostream & operator << (ostream & out, Rational r);
     ~Rational() {
-      cout << "---Rational(p,q)" << " [" << this << "]" << endl;
+      cout << "---Rational(" << _num << "," << _den << ")"  << " [" << this << "]" << endl;
     }
+    
  private:
   long _num;
   long _den;
@@ -40,4 +42,8 @@ Rational sum(Rational r1, Rational r2);
 Rational difference(Rational r1, Rational r2);
 Rational product(Rational r1, Rational r2);
 Rational quotient(Rational r1, Rational r2);
+
+Rational sqr(Rational &r);
+Rational & max(Rational &a, Rational &b);
+
 #endif
