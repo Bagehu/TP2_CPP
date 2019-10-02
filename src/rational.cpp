@@ -1,8 +1,8 @@
-// TP2 - Arthur ROUILLE et Bastien HUBERT
+// TP2 - Arthur ROUILLE and Bastien HUBERT
 
 #include <iostream>
 #include <array>
-#include "../include/rational.h"
+#include "rational.h"
 using namespace std;
 
 Rational::Rational() : _num{0}, _den{0}
@@ -11,46 +11,46 @@ Rational::Rational() : _num{0}, _den{0}
 }
 
 Rational::Rational(long p, long q) {
-    long g = euclide(p,q);
-    long sign = (q>=0) ? 1 : -1;
+  long g = euclide(p,q);
+  long sign = (q>=0) ? 1 : -1;
   
-    _num = (sign * p) / g;
-    _den = abs(q) / g;
+  _num = (sign * p) / g;
+  _den = abs(q) / g;
 
-    cout << "+++Rational(p,q)" << " [" << this << "]" << endl;
+  cout << "+++Rational(p,q)" << " [" << this << "]" << endl;
 }
 
 Rational::Rational(const Rational & r) : Rational(r._num,r._den)
 {
-   cout << "rrrRational(p,q)" << " [" << this << "]" << endl;
+  cout << "rrrRational(p,q)" << " [" << this << "]" << endl;
 }
 
 long Rational::euclide(long p, long q) {
-    if (q == 0) {
-      return abs(p);
-    } else {
-	return euclide(q, p % q);
-    }
+  if (q == 0) {
+    return abs(p);
+  } else {
+    return euclide(q, p % q);
+  }
 }
 
 long Rational::getNum() const {
-    return _num;
+  return _num;
 }
 
 long Rational::getDen() const {
-    return _den;
+  return _den;
 }
 
 long Rational::getSign() const {
-    return (_den*_num >= 0) ? 1 : -1;
+  return (_den*_num >= 0) ? 1 : -1;
 }
 
 void Rational::displayFraction(ostream & output) {
-    if(_den == 1 || _den == -1) {
-	output << _num*_den; 
-    } else {
-      output << "(" << _num << "/" << _den << ")";
-    }
+  if(_den == 1 || _den == -1) {
+    output << _num*_den; 
+  } else {
+    output << "(" << _num << "/" << _den << ")";
+  }
 }
 
 Rational inverse(Rational r) {
@@ -63,24 +63,15 @@ Rational inverse(Rational r) {
   return inv;
 }
 
-//Doesn't work
-Rational Rational::pow(int n) {
-  if (n < 0) {
-    return ::inverse(pow(-n));
+Rational Rational::pow(unsigned int n) {
+  if (n == 1) {
+    return *this;
   }
-  if (n == 0) {
-    return Rational(1, 1);
-  }
-  if (n%2==0) {
-    cout << "1:"<<_num << "/" <<_den << endl;
-    Rational r(_num*_num,_den*_den);
-    //this=r;
-    return Rational(_num*_num,_den*_den);
+  if (n%2 == 0) {
+    return *this = (Rational(_num*_num, _den*_den).pow(n/2));
   }
   else {
-    cout << "2:" <<_num << "/" <<_den << endl;
-    pow(n-1);
-    return Rational(_num,_den).pow(n-1);
+    return *this = Rational(_num, _den)*(Rational(_num*_num, _den*_den).pow((n-1)/2));
   } 
 }
 
@@ -136,90 +127,92 @@ Rational Rational::operator=(const Rational & other) {
   return *this;
 }
 
-
 ostream & operator<<(ostream & out, Rational r) {
   r.displayFraction(out);
   return out;
 }
 
-//Woaw non
 Rational Rational::operator-() {
-  Rational r;
-  r._num = - _num;
-  r._den = - _den;
+  Rational r(- _num, _den);
   return r;
 }
 
-int main() {    
-    Rational r1;
-    cout << "Numerator:" << r1.getNum();
-    cout << " denominator:" << r1.getDen();
-    cout << " sign:" << r1.getSign();
-    cout << endl;
+int test() {
+  Rational r1;
+  cout << "Numerator:" << r1.getNum();
+  cout << " denominator:" << r1.getDen();
+  cout << " sign:" << r1.getSign();
+  cout << endl;
 
-    Rational r2(1,2);
-    cout << "Numerator:" << r2.getNum();
-    cout << " denominator:" << r2.getDen();
-    cout << " sign:" << r2.getSign();
-    cout << endl;
+  Rational r2(1,2);
+  cout << "Numerator:" << r2.getNum();
+  cout << " denominator:" << r2.getDen();
+  cout << " sign:" << r2.getSign();
+  cout << endl;
 
-    Rational r3(-1,4);
-    cout << "Numerator:" << r3.getNum();
-    cout << " denominator:" << r3.getDen();
-    cout << " sign:" << r3.getSign();
-    cout << endl;
+  Rational r3(-1,4);
+  cout << "Numerator:" << r3.getNum();
+  cout << " denominator:" << r3.getDen();
+  cout << " sign:" << r3.getSign();
+  cout << endl;
 
-    cout << "The fractionnal form of r3 is ";
-    r3.displayFraction(cout);
-    cout << endl;
+  cout << "The fractionnal form of r3 is ";
+  r3.displayFraction(cout);
+  cout << endl;
     
-    cout << "The fractionnal form of r3^-1 is ";
-    inverse(r3).displayFraction(cout);
-    cout << endl;
+  cout << "The fractionnal form of r3^-1 is ";
+  inverse(r3).displayFraction(cout);
+  cout << endl;
     
-    Rational r4(1,2);
-    r4.pow(3);
-    cout << "(1/2)^3=";
-    r4.displayFraction(cout);
-    cout << endl;
+  Rational r4(1,2);
+  r4.pow(3);
+  cout << "(1/2)^3=";
+  r4.displayFraction(cout);
+  cout << endl;
     
-    r2.displayFraction(cout);
-    cout << " + ";
-    r3.displayFraction(cout);
-    cout << " = ";
-    (r2+r3).displayFraction(cout);
-    cout << endl;
+  r2.displayFraction(cout);
+  cout << " + ";
+  r3.displayFraction(cout);
+  cout << " = ";
+  (r2+r3).displayFraction(cout);
+  cout << endl;
 
-    r2.displayFraction(cout);
-    cout << " - ";
-    r3.displayFraction(cout);
-    cout << " = ";
-    (r2-r3).displayFraction(cout);
-    cout << endl;
+  r2.displayFraction(cout);
+  cout << " - ";
+  r3.displayFraction(cout);
+  cout << " = ";
+  (r2-r3).displayFraction(cout);
+  cout << endl;
 
-    r2.displayFraction(cout);
-    cout << " * ";
-    r3.displayFraction(cout);
-    cout << " = ";
-    (r2*r3).displayFraction(cout);
-    cout << endl;
+  r2.displayFraction(cout);
+  cout << " * ";
+  r3.displayFraction(cout);
+  cout << " = ";
+  (r2*r3).displayFraction(cout);
+  cout << endl;
 
     
-    r2.displayFraction(cout);
-    cout << " / ";
-    r3.displayFraction(cout);
-    cout << " = ";
-    (r2/r3).displayFraction(cout);
-    cout << endl;
+  r2.displayFraction(cout);
+  cout << " / ";
+  r3.displayFraction(cout);
+  cout << " = ";
+  (r2/r3).displayFraction(cout);
+  cout << endl;
 
-    cout << "-";
-    r3.displayFraction(cout);
-    cout << " = ";
-    (-r3).displayFraction(cout);
-    cout << endl;
+  cout << "-";
+  r3.displayFraction(cout);
+  cout << " = ";
+  (-r3).displayFraction(cout);
+  cout << endl;
 
-    Rational r5(2,9);
-    cout << "Nouveau rationel woaw :";
-    cout << r5 << endl;
-    return 0; 
+  Rational r5(2,9);
+  cout << "Nouveau rationel woaw :";
+  cout << r5 << endl;
+
+  return EXIT_SUCCESS;
+}
+
+int main() {
+  test();
+  return EXIT_SUCCESS; 
 }

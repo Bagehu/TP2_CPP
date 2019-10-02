@@ -18,7 +18,7 @@ public:
     inline long getSign() const;
     void displayFraction(ostream & output);
 
-    Rational pow(int n);
+    Rational pow(unsigned int n);
     Rational inverse(Rational r);
 
     Rational operator*(Rational other);
@@ -40,4 +40,6 @@ Rational sum(Rational r1, Rational r2);
 Rational difference(Rational r1, Rational r2);
 Rational product(Rational r1, Rational r2);
 Rational quotient(Rational r1, Rational r2);
+int test();
+int main();
 #endif

@@ -14,8 +14,7 @@ bin :
 clean:
 	find . -type f -name '*.o' -exec rm {} +
 	find . -type f -name '*\~' -exec rm {} +
-	rm ./bin/*
-	rmdir ./bin/
+	rm -f ./bin/*
 
 archive:
 	make -i clean
